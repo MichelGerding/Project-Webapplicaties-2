@@ -9,6 +9,7 @@ export const authOptions = {
             issuer: process.env.NEXT_PUBLIC_COGNITO_ISSUER!,
         }),
     ],
+    secret: process.env.NEXT_PUBLIC_SECRET!,
 
     theme: {
         colorScheme: "dark", // "auto" | "dark" | "light"
