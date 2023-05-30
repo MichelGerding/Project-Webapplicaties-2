@@ -1,13 +1,50 @@
 import React from 'react'
-import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import Image from 'next/image'
 
 export default function LoginScreen() {
     return (
-        <div className="h-screen bg-bg flex flex-col text-white/90">
-            <div className="m-auto bg-bg-700 px-4 md:px-10 py-20 md:rounded-3xl w-full md:w-fit flex flex-col">
-                <h1 className="text-2xl text-center mb-10">You Are Not Logged In</h1>
-                <Link className="btn-primary" href="/api/auth/signin">Sign In</Link>
+        <div>
+            <div style={{
+                borderRadius: "50px",
+                backgroundColor: "#ffffff",
+                boxShadow: "20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff",
+                padding: "20px 40px",
+                maxWidth: "380px",
+
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
+
+                <h2> You need to be logged in to use the application</h2>
+                <img src="/logo.jpg" alt="logo" style={{
+                    maxWidth: "300px",
+                    aspectRatio: "3/2",
+                }} />
+
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "2em"
+                }}>
+                    <button
+                        type="button"
+                        onClick={() => signIn('cognito')}
+                        style={{
+                            backgroundColor: 'white',
+                            border: '0px',
+                            color: 'black',
+                            borderRadius: '20px',
+                            fontSize: '1.5em',
+                            padding: '20px 60px',
+                            boxShadow: "10px 10px 20px #666666, -10px -10px 20px #ffffff",
+                            fontWeight: 'bold',
+                        }}
+                    >Log in</button>
+                </div>
             </div>
-        </div>
+        </div >
     )
 }

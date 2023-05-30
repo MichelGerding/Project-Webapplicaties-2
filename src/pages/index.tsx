@@ -21,7 +21,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        {session.status == 'unauthenticated' ? <LoginScreen /> : <SessionInfo session={session.data!} />}
+        {session.status != 'unauthenticated' ? <SessionInfo session={session.data!} /> : <LoginScreen />}
       </main>
     </>
   )
