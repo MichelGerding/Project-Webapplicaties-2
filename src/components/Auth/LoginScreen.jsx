@@ -31,7 +31,7 @@ export default function LoginScreen() {
                 }}>
                     <button
                         type="button"
-                        onClick={() => signIn('cognito')}
+                        onClick={() => signIn('cognito', { callbackUrl: "/dashboard" })}
                         style={{
                             backgroundColor: 'white',
                             border: '0px',
