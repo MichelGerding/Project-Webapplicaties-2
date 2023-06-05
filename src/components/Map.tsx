@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { GoogleMap, useJsApiLoader, Marker, Circle } from '@react-google-maps/api';
 
@@ -21,7 +22,6 @@ function MyComponent({
         height: '400px',
     }
 }: mapProps) {
-
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
@@ -55,18 +55,17 @@ function MyComponent({
         );
     });
 
-    console.log(center, zoom)
     const map = <GoogleMap
         mapContainerStyle={containerStyle}
 
-        // onLoad={map => {
-        //     // fit the map to the bounds of the markers
-        //     let bounds = new window.google.maps.LatLngBounds();
-        //     data.forEach((location: any) => {
-        //         bounds.extend({ lat: location.Latitude, lng: location.Longitude });
-        //     });
-        //     map.fitBounds(bounds);
-        // }}
+        onLoad={map => {
+            // fit the map to the bounds of the markers
+            let bounds = new window.google.maps.LatLngBounds();
+            data.forEach((location: any) => {
+                bounds.extend({ lat: location.Latitude, lng: location.Longitude });
+            });
+            map.fitBounds(bounds);
+        }}
 
         center={center}
         zoom={zoom}

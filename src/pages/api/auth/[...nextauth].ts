@@ -11,12 +11,9 @@ export const authOptions = {
   ],
   secret: process.env.NEXT_PUBLIC_SECRET!,
 
-  theme: {
-    colorScheme: "dark", // "auto" | "dark" | "light"
-    brandColor: "#000", // Hex color code
-    buttonText: "#fff", // Hex color code
+  pages: {
+    signIn: "/",
   },
 };
 
-// @ts-expect-error
 export default NextAuth(authOptions);

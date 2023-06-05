@@ -1,0 +1,98 @@
+[
+    {
+        "country": "Egypt",
+        "latitude": 26.8206,
+        "longitude": 30.8025,
+        "zoom": 5.5,
+        "stations": [
+            {
+                "Location": "Cairo",
+                "Latitude": 30.0444,
+                "Longitude": 31.2357,
+                "measurements": [
+                    {
+                        "Date": "2021-10-01",
+                        "visib": 40,
+                        "humidity": 100
+                    }
+                ]
+            },
+            {
+                "Location": "Alexandria",
+                "Latitude": 31.2001,
+                "Longitude": 29.9187,
+                "measurements": [
+                    {
+                        "Date": "2021-10-01",
+                        "visib": 10,
+                        "humidity": 75
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "country": "United States",
+        "latitude": 37.0902,
+        "longitude": -95.7129,
+        "zoom": 4,
+        "stations": [
+            {
+                "Location": "New York",
+                "Latitude": 40.7128,
+                "Longitude": -74.0060,
+                "measurements": [
+                    {
+                        "Date": "2021-10-01",
+                        "visib": 6,
+                        "humidity": 50
+                    }
+                ]
+            },
+            {
+                "Location": "Washington",
+                "Latitude": 47.7511,
+                "Longitude": -120.7401,
+                "measurements": [
+                    {
+                        "Date": "2021-10-01",
+                        "visib": 3,
+                        "humidity": 20
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "country": "United Kingdom",
+        "latitude": 55.3781,
+        "longitude": -3.4360,
+        "zoom": 5,
+        "stations": [
+            {
+                "Location": "London",
+                "Latitude": 51.5074,
+                "Longitude": -0.1278,
+                "measurements": [
+                    {
+                        "Date": "2021-10-01",
+                        "visib": 10,
+                        "humidity": 90
+                    }
+                ]
+            },
+            {
+                "Location": "Manchester",
+                "Latitude": 53.4808,
+                "Longitude": -2.2426,
+                "measurements": [
+                    {
+                        "Date": "2021-10-01",
+                        "visib": 12,
+                        "humidity": 50
+                    }
+                ]
+            }
+        ]
+    }
+]

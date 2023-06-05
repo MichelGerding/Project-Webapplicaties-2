@@ -11,149 +11,60 @@ import SessionInfo from "@/components/Auth/SessionInfo";
 import CountrySelector, { Country } from "@/components/CountrySelector";
 import Leaderboard from "@/components/Leaderboard";
 
-const exampleData: { [key: string]: any } = {
-  "Egypt": [
-    {
-      "Location": "Cairo",
-      "Latitude": 30.0444,
-      "Longitude": 31.2357,
-      measurements: [
-        {
-          "Date": "2021-10-01",
-          "visib": 40,
-          "humidity": 100,
-        }
-      ]
-    },
-    {
-      "Location": "Alexandria",
-      "Latitude": 31.2001,
-      "Longitude": 29.9187,
-      measurements: [
-        {
-          "Date": "2021-10-01",
-          "visib": 10,
-          "humidity": 75,
-        }
-      ]
-    },
-  ],
-  "United States": [
-    {
-      "Location": "New York",
-      "Latitude": 40.7128,
-      "Longitude": -74.0060,
-      measurements: [
-        {
-          "Date": "2021-10-01",
-          "visib": 6,
-          "humidity": 50,
-        }
-      ]
-    },
-    {
-      "Location": "Washington",
-      "Latitude": 47.7511,
-      "Longitude": -120.7401,
-      measurements: [
-        {
-          "Date": "2021-10-01",
-          "visib": 3,
-          "humidity": 20,
-        }
-      ]
-    },
-  ],
-  "United Kingdom": [
-    {
-      "Location": "London",
-      "Latitude": 51.5074,
-      "Longitude": -0.1278,
-      measurements: [
-        {
-          "Date": "2021-10-01",
-          "visib": 10,
-          "humidity": 90,
-        }
-      ]
-    },
-    {
-      "Location": "Manchester",
-      "Latitude": 53.4808,
-      "Longitude": -2.2426,
-      measurements: [
-        {
-          "Date": "2021-10-01",
-          "visib": 12,
-          "humidity": 50,
-        }
-      ]
-    },
-  ],
-
-}
 
 const inter = Inter({ subsets: ['latin'] })
-
-const exampleCountries = [
-  {
-    name: "Egypt",
-    defaultCenter: { lat: 30.0444, lng: 31.2357 },
-    defaultZoom: 6,
-  },
-  {
-    name: "United States",
-    defaultCenter: { lat: 37.0902, lng: -95.7129 },
-    defaultZoom: 4,
-  },
-  {
-    name: "United Kingdom",
-    defaultCenter: { lat: 55.3781, lng: -3.4360 },
-    defaultZoom: 5,
-  },
-]
 
 export default function Dashboard() {
   const session = useSession();
 
-  const [countries, setCountries] = React.useState([] as Country[]);
+  let [countries, setCountries] = React.useState([] as Country[]);
+  const [country, setCountry] = React.useState({} as Country);
   const [data, setData] = React.useState([] as any[]);
   const [center, setCenter] = React.useState(null as any);
   const [zoom, setZoom] = React.useState(null as any);
 
   useEffect(() => {
-    const defaultCountry = exampleCountries[0];
-    setCenter(defaultCountry.defaultCenter);
-    let data = exampleData;
-    setData(data[defaultCountry.name]);
-    setZoom(defaultCountry.defaultZoom);
+    fetch("/api/data.json")
+      .then((res) => res.json())
+      .then((data) => {
 
-    let countries = exampleCountries.map((country) => {
+        countries = [];
+        const dt: { [key: string]: any } = {};
+        data.forEach((d: any) => {
+          dt[d.country] = d.stations;
 
-      // get the average humidity from the data
-      let humiditySum = 0;
-      let visibilitySum = 0;
-      data[country.name].forEach((location: any) => {
-        humiditySum += location.measurements[0].humidity;
-        visibilitySum += location.measurements[0].visib;
+          // get the average humidity and visibility from the data
+          let humiditySum = 0;
+          let visibilitySum = 0;
+          d.stations.forEach((location: any) => {
+            humiditySum += location.measurements[0].humidity;
+            visibilitySum += location.measurements[0].visib;
+          });
+
+          // round to 1 decimal
+          humiditySum = Math.round((humiditySum / d.stations.length) * 10) / 10;
+          visibilitySum = Math.round((visibilitySum / d.stations.length) * 10) / 10;
+
+          countries.push({
+            name: d.country,
+            averageHumidity: humiditySum,
+            averageVisibility: visibilitySum,
+            defaultCenter: {
+              lat: d.latitude,
+              lng: d.longitude
+            },
+            defaultZoom: d.zoom ?? 6,
+          } as Country);
+        });
+
+        setData(dt as any);
+        setCenter(countries[0].defaultCenter);
+        setCountry(countries[0]);
+        setZoom(countries[0].defaultZoom);
+        setCountries(countries);
+        console.log(countries)
+
       });
-
-      // get the avg
-      humiditySum = humiditySum / data[country.name].length;
-      visibilitySum = visibilitySum / data[country.name].length;
-
-      // round to 1 decimal
-      humiditySum = Math.round((humiditySum / data[country.name].length) * 10) / 10;
-      visibilitySum = Math.round((visibilitySum / data[country.name].length) * 10) / 10;
-
-      return {
-        ...country,
-        averageHumidity: humiditySum,
-        averageVisibility: visibilitySum,
-      }
-    });
-
-    setCountries(countries);
   }, [])
 
   if (
@@ -163,6 +74,23 @@ export default function Dashboard() {
       <>
         <SessionInfo session={session.data!} />
         <p>Not logged in</p>
+      </>
+    )
+  }
+
+  if (data == null || data.length === 0) {
+    return (
+      <>
+        <Head>
+          <title>Create Next App</title>
+          <meta name="description" content="Generated by create next app" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <main className={`${styles.main} ${inter.className}`}>
+          <SessionInfo session={session.data!} />
+          <p>Loading...</p>
+        </main>
       </>
     )
   }
@@ -181,16 +109,16 @@ export default function Dashboard() {
           countries={countries}
           selectionChanged={(country: Country) => {
             setCenter(country.defaultCenter);
-            setData(exampleData[country.name]);
+            setCountry(country);
             setZoom(country.defaultZoom);
           }} />
 
         <Map
           center={center}
           zoom={zoom}
-          data={data}
+          data={data[country.name as any]}
         />
-        <Leaderboard data={data} />
+        <Leaderboard data={data[country.name as any]} />
       </main>
     </>
 
