@@ -10,6 +10,7 @@ import Map from "@/components/Map";
 import SessionInfo from "@/components/Auth/SessionInfo";
 import CountrySelector, { Country } from "@/components/CountrySelector";
 import Leaderboard from "@/components/Leaderboard";
+import Chart from "@/components/Chart";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -119,6 +120,48 @@ export default function Dashboard() {
           data={data[country.name as any]}
         />
         <Leaderboard data={data[country.name as any]} />
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, calc(600px + 2rem))",
+          gridGap: "1rem",
+          width: "100%",
+        }}>
+
+          {data[country.name as any].map((location: any) => {
+            return (
+              <div style={{ background: "#F6FCF7", padding: "1rem" }}>
+                <h2> {location.Location}</h2>
+                <h3> Humidity </h3>
+                <Chart
+                  chartName="Humidity"
+                  data={location.measurements.map((d: any) => {
+                    return {
+                      x: d.Date,
+                      y: d.humidity
+                    }
+                  })}
+                  xType="date"
+                  yType="%"
+                />
+
+                <h3> Visibility </h3>
+                <Chart
+                  chartName="Visibility"
+                  data={location.measurements.map((d: any) => {
+                    return {
+                      x: d.Date,
+                      y: d.visib
+                    }
+                  })}
+                  xType="date"
+                  yType="km"
+                />
+              </div>
+            )
+          })}
+        </div>
+
+
       </main>
     </>
 

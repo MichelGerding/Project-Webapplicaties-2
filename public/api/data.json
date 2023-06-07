@@ -14,6 +14,26 @@
                         "Date": "2021-10-01",
                         "visib": 40,
                         "humidity": 100
+                    },
+                    {
+                        "Date": "2021-10-02",
+                        "visib": 40,
+                        "humidity": 90
+                    },
+                    {
+                        "Date": "2021-10-03",
+                        "visib": 40,
+                        "humidity": 80
+                    },
+                    {
+                        "Date": "2021-10-04",
+                        "visib": 40,
+                        "humidity": 70
+                    },
+                    {
+                        "Date": "2021-10-05",
+                        "visib": 40,
+                        "humidity": 100
                     }
                 ]
             },
