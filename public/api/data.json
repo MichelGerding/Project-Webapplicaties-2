@@ -1,9 +1,6 @@
 [
     {
         "country": "Egypt",
-        "latitude": 26.8206,
-        "longitude": 30.8025,
-        "zoom": 5.5,
         "stations": [
             {
                 "Location": "Cairo",
@@ -53,9 +50,6 @@
     },
     {
         "country": "United States",
-        "latitude": 37.0902,
-        "longitude": -95.7129,
-        "zoom": 4,
         "stations": [
             {
                 "Location": "New York",
@@ -85,9 +79,6 @@
     },
     {
         "country": "United Kingdom",
-        "latitude": 55.3781,
-        "longitude": -3.4360,
-        "zoom": 5,
         "stations": [
             {
                 "Location": "London",

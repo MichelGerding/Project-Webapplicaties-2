@@ -142,14 +142,11 @@ export default function CChart({
         data: data,
     }] as ApexAxisChartSeries;
 
-    console.log(series)
-
 
     return (
         <div>
             {(typeof window !== "undefined") ?
                 <Chart
-
                     options={options}
                     series={series}
                     type="line"

@@ -6,8 +6,6 @@ type LeaderboardProps = {
 
 
 export default function Leaderboard({ data }: LeaderboardProps) {
-    console.log(data)
-
     return (
         <div className="leaderboard">
             <h2>Top 10</h2>
