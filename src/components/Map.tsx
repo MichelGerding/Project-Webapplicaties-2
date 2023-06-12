@@ -5,11 +5,6 @@ import { Loader } from '@googlemaps/js-api-loader';
 
 type mapProps = {
   data: any
-  center: { lat: number, lng: number }
-  zoom?: number,
-  maxZoom?: number,
-  minZoom?: number,
-  containerStyle?: { width: string, height: string }
 }
 
 function Map({

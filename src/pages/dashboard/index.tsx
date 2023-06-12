@@ -14,6 +14,7 @@ import Leaderboard from "@/components/Leaderboard/Leaderboard";
 import HistoryWrapper from "@/components/history/historyWrapper";
 import Navbar from "@/components/Navbar/navbar";
 import CountrySelectorMobile from "@/countrySelector/CountrySelectorMobile";
+import Hero from "@/components/hero/Hero";
 
 
 
@@ -88,34 +89,12 @@ export default function Dashboard() {
     } else {
       return (
         <div className={styles.mainRow}>
-          <div className={styles.GIWrapper}>
-            <h1 className={styles.GI}> General information</h1>
-            <CountrySelectorMobile
-              countries={countries}
-              selectedCountry={country}
-              selectionChanged={(country: Country) => {
-                setCenter(country.defaultCenter);
-                setCountry(country);
-                setZoom(country.defaultZoom);
-              }} />
-
-          </div>
-          <div className={styles.hero}>
-            <CountrySelector
-              countries={countries}
-              selectionChanged={(country: Country) => {
-                setCenter(country.defaultCenter);
-                setCountry(country);
-                setZoom(country.defaultZoom);
-              }} />
-
-            <Map
-              center={center}
-              zoom={zoom}
-              data={data[country.name as any]}
-            />
-            <Leaderboard data={data[country.name as any]} country={country.name} />
-          </div>
+          <Hero
+            countries={countries}
+            data={data}
+            country={country}
+            setCountry={setCountry}
+            setCenter={setCenter} />
 
           <HistoryWrapper data={data[country.name as any]} country={country.name} />
 

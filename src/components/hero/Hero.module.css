@@ -1,0 +1,36 @@
+.hero {
+    display: grid;
+    grid-template-columns: 272px 450px 450px;
+    gap: 60px;
+}
+
+.GIWrapper {
+    margin-bottom: 60px;
+}
+
+@media (max-width: 1360px) {
+    .hero {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 950px) {
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .GIWrapper {
+        flex-direction: column !important;
+        align-items: inherit !important;
+        gap: 20px;
+    }
+}
+
+
+.mainRow {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    padding-top: 155px;
+    margin: auto 20px;
+}
