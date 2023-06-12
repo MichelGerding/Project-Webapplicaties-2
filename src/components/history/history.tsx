@@ -46,14 +46,14 @@ export default function History({ location, filterFunction }: HistoryProps) {
                     background: "#F6FCF7",
                     padding: "30px 35px"
                 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div style={{ margin: "0 0 10 0", display: "flex", justifyContent: "space-between" }}>
                         <h2
                             key={location.Location + ":header-chart"}
-                            style={{ margin: "0 0 10 0" }}
+                            style={{}}
                         > {location.Location}</h2>
                         <span onClick={() => {
                             setColapsed(!colapsed);
-                        }}> X</span>
+                        }}>  <Image style={{ marginTop: "10px", rotate: "180deg" }} src="caret.svg" alt="" width={40} height={40} /> </span>
 
                     </div>
                     <h3 key={location.Location + ":header-humidity-chart"}

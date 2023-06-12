@@ -8,6 +8,7 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 import { useEffect, useState } from "react";
 import { getUserLocale } from "get-user-locale";
 import moment from "moment/moment";
+import { useResizeDetector } from 'react-resize-detector';
 
 type ChartProps = {
     data: Data[];
@@ -145,16 +146,22 @@ export default function CChart({
         data: data,
     }] as ApexAxisChartSeries;
 
+    const { width, ref } = useResizeDetector();
+
+
+
+    const aspectRatio = 4 / 5;
+    const chartHeight = Math.min(width ?? 500, 500) * aspectRatio;
 
     return (
-        <div>
+        <div ref={ref}>
             {(typeof window !== "undefined") ?
                 <Chart
                     options={options}
                     series={series}
                     type="line"
-                    width={500}
-                    height={300}
+                    width={"100%"}
+                    height={chartHeight}
                 /> : null
             }
 

@@ -27,6 +27,8 @@
     "react-async": "^10.0.1",
     "react-date-range": "^1.4.0",
     "react-dom": "18.2.0",
+    "react-resize-detector": "^9.1.0",
+    "react-select": "^5.7.3",
     "typescript": "5.0.4"
   },
   "devDependencies": {

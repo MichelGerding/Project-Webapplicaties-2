@@ -1,0 +1,18 @@
+.countrySelector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: fit-content;
+
+    min-width: 200px;
+    width: 100%;
+    max-width: 500px;
+}
+
+
+@media (min-width: 1360px) {
+    .countrySelector {
+        display: none;
+    }
+}

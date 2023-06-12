@@ -1,0 +1,43 @@
+.dateRangePill {
+    margin: 0;
+    padding: 7px 14px;
+    background: #02418B;
+    color: white;
+    border-radius: calc(0.5em + 7px);
+    width: fit-content;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+
+.dateRangePicker {
+    z-index: 10000000;
+    background-color: white;
+    padding: 3em;
+}
+
+.dateRangePickerClose {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+
+    font-size: 1.25em;
+}
+
+.historyGrid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 600px);
+    gap: 60px;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+@media screen and (max-width: 1360px) {
+    .historyGrid {
+        grid-template-columns: 1fr;
+    }
+
+}

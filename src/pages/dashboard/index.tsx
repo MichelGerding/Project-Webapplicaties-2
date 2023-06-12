@@ -7,20 +7,19 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/index.module.css'
 
 import Map from "@/components/Map";
-import SessionInfo from "@/components/Auth/SessionInfo";
 import CountrySelector, { Country } from "@/countrySelector/CountrySelector";
 import Leaderboard from "@/components/Leaderboard/Leaderboard";
 
 
 import HistoryWrapper from "@/components/history/historyWrapper";
 import Navbar from "@/components/Navbar/navbar";
+import CountrySelectorMobile from "@/countrySelector/CountrySelectorMobile";
 
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Dashboard() {
-  const session = useSession();
 
   let [countries, setCountries] = React.useState([] as Country[]);
   const [country, setCountry] = React.useState({} as Country);
@@ -71,6 +70,8 @@ export default function Dashboard() {
       });
   }, [])
 
+  /** check if the user is authenticated */
+  const session = useSession();
   if (
     !(session && session.data && session.data.user &&
       session.status === "authenticated")) {
@@ -81,14 +82,24 @@ export default function Dashboard() {
     )
   }
 
-
   const renderBody = () => {
     if (data == null || data.length === 0) {
       return <p> Loading... </p>
     } else {
       return (
         <div className={styles.mainRow}>
-          <h1 className={styles.GI}> General inforation</h1>
+          <div className={styles.GIWrapper}>
+            <h1 className={styles.GI}> General information</h1>
+            <CountrySelectorMobile
+              countries={countries}
+              selectedCountry={country}
+              selectionChanged={(country: Country) => {
+                setCenter(country.defaultCenter);
+                setCountry(country);
+                setZoom(country.defaultZoom);
+              }} />
+
+          </div>
           <div className={styles.hero}>
             <CountrySelector
               countries={countries}
