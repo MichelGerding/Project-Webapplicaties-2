@@ -23,7 +23,7 @@ export default function Leaderboard({ data, country }: LeaderboardProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((location, index) => {
+                    {data.sort((a, b) => b.measurements[0].humidity - a.measurements[0].humidity).map((location, index) => {
                         return (
                             <tr key={index} className={styles.tableRow}>
                                 <td>{location.Location}</td>

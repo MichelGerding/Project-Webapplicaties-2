@@ -43,6 +43,122 @@
                         "Date": "2023-6-01",
                         "visib": 10,
                         "humidity": 75
+                    },
+                    {
+                        "Date": "2023-6-02",
+                        "visib": 20,
+                        "humidity": 80
+                    },
+                    {
+                        "Date": "2023-6-03",
+                        "visib": 30,
+                        "humidity": 85
+                    },
+                    {
+                        "Date": "2023-6-04",
+                        "visib": 40,
+                        "humidity": 90
+                    },
+                    {
+                        "Date": "2023-6-05",
+                        "visib": 50,
+                        "humidity": 95
+                    }
+                ]
+            },
+            {
+                "Location": "Aswan",
+                "Latitude": 24.0889,
+                "Longitude": 32.8998,
+                "measurements": [
+                    {
+                        "Date": "2023-6-01",
+                        "visib": 40,
+                        "humidity": 100
+                    },
+                    {
+                        "Date": "2023-6-02",
+                        "visib": 40,
+                        "humidity": 90
+                    },
+                    {
+                        "Date": "2023-6-03",
+                        "visib": 40,
+                        "humidity": 80
+                    },
+                    {
+                        "Date": "2023-6-04",
+                        "visib": 40,
+                        "humidity": 70
+                    },
+                    {
+                        "Date": "2023-6-05",
+                        "visib": 40,
+                        "humidity": 100
+                    }
+                ]
+            },
+            {
+                "Location": "Luxor",
+                "Latitude": 25.6872,
+                "Longitude": 32.6396,
+                "measurements": [
+                    {
+                        "Date": "2023-6-01",
+                        "visib": 40,
+                        "humidity": 100
+                    },
+                    {
+                        "Date": "2023-6-02",
+                        "visib": 40,
+                        "humidity": 90
+                    },
+                    {
+                        "Date": "2023-6-03",
+                        "visib": 40,
+                        "humidity": 80
+                    },
+                    {
+                        "Date": "2023-6-04",
+                        "visib": 40,
+                        "humidity": 70
+                    },
+                    {
+                        "Date": "2023-6-05",
+                        "visib": 40,
+                        "humidity": 100
+                    }
+                ]
+            },
+            {
+                "Location": "Hurghada",
+                "Latitude": 27.2579,
+                "Longitude": 33.8116,
+                "measurements": [
+                    {
+                        "Date": "2023-6-01",
+                        "visib": 40,
+                        "humidity": 100
+                    },
+                    {
+                        "Date": "2023-6-02",
+                        "visib": 40,
+                        "humidity": 90
+                    },
+                    {
+                        "Date": "2023-6-03",
+                        "visib": 40,
+                        "humidity": 80
+                    },
+                    {
+                        "Date": "2023-6-04",
+                        "visib": 40,
+                        "humidity": 70
+                    },
+                    {
+                        "Date": "2023-6-05",
+                        "visib": 40,
+                        "humidity": 100
                     }
                 ]
             }
