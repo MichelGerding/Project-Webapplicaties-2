@@ -4,13 +4,17 @@ import { useSession } from "next-auth/react";
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/index.module.css'
 
 import Map from "@/components/Map";
 import SessionInfo from "@/components/Auth/SessionInfo";
-import CountrySelector, { Country } from "@/components/CountrySelector";
-import Leaderboard from "@/components/Leaderboard";
-import Chart from "@/components/Chart";
+import CountrySelector, { Country } from "@/countrySelector/CountrySelector";
+import Leaderboard from "@/components/Leaderboard/Leaderboard";
+
+
+import HistoryWrapper from "@/components/history/historyWrapper";
+import Navbar from "@/components/Navbar/navbar";
+
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -72,7 +76,6 @@ export default function Dashboard() {
       session.status === "authenticated")) {
     return (
       <>
-        <SessionInfo session={session.data!} />
         <p>Not logged in</p>
       </>
     )
@@ -84,64 +87,28 @@ export default function Dashboard() {
       return <p> Loading... </p>
     } else {
       return (
-        <>
-          <CountrySelector
-            countries={countries}
-            selectionChanged={(country: Country) => {
-              setCenter(country.defaultCenter);
-              setCountry(country);
-              setZoom(country.defaultZoom);
-            }} />
+        <div className={styles.mainRow}>
+          <h1 className={styles.GI}> General inforation</h1>
+          <div className={styles.hero}>
+            <CountrySelector
+              countries={countries}
+              selectionChanged={(country: Country) => {
+                setCenter(country.defaultCenter);
+                setCountry(country);
+                setZoom(country.defaultZoom);
+              }} />
 
-          <Map
-            center={center}
-            zoom={zoom}
-            data={data[country.name as any]}
-          />
-          <Leaderboard data={data[country.name as any]} />
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, calc(600px + 2rem))",
-            gridGap: "1rem",
-            width: "100%",
-          }}>
-
-            {data[country.name as any].map((location: any) => {
-              return (
-                <div key={location.Location + ":header-wrapper"} style={{ background: "#F6FCF7", padding: "1rem" }}>
-                  <h2 key={location.Location + ":header-chart"}> {location.Location}</h2>
-                  <h3 key={location.Location + ":header-humidity-chart"}> Humidity </h3>
-                  <Chart
-                    key={location.Location + ":humidity-chart"}
-                    chartName="Humidity"
-                    data={location.measurements.map((d: any) => {
-                      return {
-                        x: d.Date,
-                        y: d.humidity
-                      }
-                    })}
-                    xType="date"
-                    yType="%"
-                  />
-
-                  <h3 key={location.Location + ":header-visibility-chart"}> Visibility </h3>
-                  <Chart
-                    key={location.Location + ":visibility-chart"}
-                    chartName="Visibility"
-                    data={location.measurements.map((d: any) => {
-                      return {
-                        x: d.Date,
-                        y: d.visib
-                      }
-                    })}
-                    xType="date"
-                    yType="km"
-                  />
-                </div>
-              )
-            })}
+            <Map
+              center={center}
+              zoom={zoom}
+              data={data[country.name as any]}
+            />
+            <Leaderboard data={data[country.name as any]} country={country.name} />
           </div>
-        </>
+
+          <HistoryWrapper data={data[country.name as any]} country={country.name} />
+
+        </div>
       )
     }
   }
@@ -154,6 +121,7 @@ export default function Dashboard() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navbar logo="/logo.jpg" links={[]} />
       <main className={`${styles.main} ${inter.className}`}>
         {renderBody()}
       </main>

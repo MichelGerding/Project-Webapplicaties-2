@@ -1,0 +1,53 @@
+.leaderboard {
+    min-width: 400px;
+    background-color: #F4CB8F;
+    flex: 1;
+    padding: 25px
+}
+
+.title {
+    margin: 0;
+    font-size: 32px;
+    width: auto;
+}
+
+.header {
+    position: relative;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header>span {
+    font-size: 12px;
+    background-color: #02418B;
+    color: white;
+    padding: 7px 22px;
+
+    border-radius: 19px;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    bottom: -10px;
+
+    height: 1px;
+    background-color: #4A3D2B;
+}
+
+
+.leaderboard>table {
+    width: 100%;
+}
+
+.tableRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

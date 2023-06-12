@@ -1,0 +1,12 @@
+.button {
+    margin: 0;
+    padding: .5em 1em;
+    background: #02418B;
+    color: white;
+    border-radius: calc(0.5em + 7px);
+    width: fit-content;
+    font-weight: normal;
+    font-size: 24px;
+    border: none;
+    margin-bottom: 60px;
+}

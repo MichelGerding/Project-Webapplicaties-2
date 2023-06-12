@@ -1,0 +1,39 @@
+.nav {
+    position: fixed;
+    top: 0;
+    background-color: #F4CB8F;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    align-content: center;
+    align-items: center;
+
+    height: 95px;
+    width: 100vw;
+    z-index: 999;
+}
+
+.div {
+    margin: auto;
+    max-width: 1300px;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 2ch
+}
+
+.profile>span {
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.profilePic {
+    border-radius: 50%;
+}

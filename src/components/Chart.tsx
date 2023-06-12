@@ -15,6 +15,8 @@ type ChartProps = {
     yType: string;
 
     chartName: string;
+
+    dataFilter: (x: Date) => boolean;
 }
 
 type Data = {
@@ -25,23 +27,23 @@ type Data = {
 }
 
 
-function parseData(dataIn: Data[], labelType: string): Data[] {
+function parseData(dataIn: Data[], labelType: string, filter: any): Data[] {
     let correctedData = dataIn.map((d, i) => {
         // check if k is a valid date
         if (labelType === "date") {
             if (moment(d.x, "YYYY-MM-DDTHH:mm").isValid()) {
+                let date = moment(d.x, "YYYY-MM-DDTHH:mm").toDate();
+                if (!filter(date)) {
+                    return undefined;
+                }
+
                 return {
                     y: d.y,
-                    x: moment(d.x, "YYYY-MM-DDTHH:mm").toDate().toLocaleString(
+                    x: date.toLocaleString(
                         getUserLocale({ fallbackLocale: "en-US", useFallbackLocale: true }) as string,
                         {
-                            year: "numeric",
                             month: "long",
                             day: "numeric",
-                            weekday: "long",
-                            hour: "numeric",
-                            minute: "numeric",
-                            hour12: false
                         }
                     )
                 };
@@ -105,10 +107,11 @@ export default function CChart({
     data: dataIn,
     xType,
     yType,
-    chartName
+    chartName,
+    dataFilter
 }: ChartProps) {
 
-    const data = parseData(dataIn, xType);
+    const data = parseData(dataIn, xType, dataFilter);
 
     const avgY = data.reduce((a, b) => a + b.y, 0) / data.length;
 
@@ -150,8 +153,8 @@ export default function CChart({
                     options={options}
                     series={series}
                     type="line"
-                    width={600}
-                    height={400}
+                    width={500}
+                    height={300}
                 /> : null
             }
 

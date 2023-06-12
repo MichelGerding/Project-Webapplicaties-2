@@ -1,5 +1,8 @@
 import React from "react";
 
+import styles from "./CountrySelector.module.css"
+
+
 type Country = {
     name: string,
     defaultCenter: { lat: number, lng: number },
@@ -17,38 +20,35 @@ export default function CountrySelector({ countries, selectionChanged }: Country
 
     const refs: HTMLDivElement[] = [];
 
-
     return (
-        <div className="country-selector">
+        <div className={styles.countrySelector}>
             {countries.map((country, index) => {
                 return (
                     <div
                         ref={(el) => { refs[index] = el!; }}
                         key={index}
-                        className={"country" + (index === 0 ? " selected" : "")}
+                        className={index === 0 ? styles.selected : ""}
                         onClick={() => {
                             selectionChanged(country);
 
                             // add the class selected to the currently selected country
                             refs.forEach((ref, i) => {
                                 if (i === index) {
-                                    ref.classList.add("selected");
+                                    ref.classList.add(styles.selected);
                                 } else {
-                                    ref.classList.remove("selected");
+                                    ref.classList.remove(styles.selected);
                                 }
                             });
 
                         }}
                     >
-                        <p>
-                            <span style={{ fontWeight: "bold" }}> {country.name} </span>
-                            <span style={{ display: "block" }}> Humidity: {country.averageHumidity}% </span>
-                            <span style={{ display: "block" }}>Visibility: {country.averageVisibility}km</span>
-                        </p>
+                        <span className={styles.countryName}> {country.name} </span>
+                        <span className={styles.countrySubtitle}> Humidity: {country.averageHumidity}% </span>
+                        <span className={styles.countrySubtitle}>Visibility: {country.averageVisibility}km</span>
                     </div>
                 )
             })}
-        </div>
+        </div >
     )
 
 }

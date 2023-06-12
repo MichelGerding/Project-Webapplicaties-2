@@ -18,13 +18,18 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "get-user-locale": "^2.2.1",
+    "js2xmlparser": "^5.0.0",
     "moment": "^2.29.4",
     "next": "13.4.3",
     "next-auth": "^4.22.1",
     "react": "18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-async": "^10.0.1",
+    "react-date-range": "^1.4.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/react-date-range": "^1.4.4"
   }
 }

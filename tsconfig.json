@@ -30,7 +30,7 @@
     "**/*.tsx",
     "src/pages/_app.tsx",
     "src/pages/api/auth/[...nextauth].ts"
-, "src/components/Map.tsx"  ],
+, "src/components/Map.tsx", "src/pages/dashboard/index.jsx", "src/libs/x2js.js"  ],
   "exclude": [
     "node_modules"
   ]

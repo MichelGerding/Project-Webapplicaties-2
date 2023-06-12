@@ -1,0 +1,47 @@
+.countrySelector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: fit-content;
+
+}
+
+.countrySelector>div {
+    background-color: #E9F7EB;
+    width: 255px;
+    padding-left: 10px;
+
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+
+    font-size: 20px;
+}
+
+.selected {
+    position: relative;
+}
+
+.selected>span {
+    z-index: 2;
+}
+
+.selected::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+    z-index: 0;
+}
+
+.countryName {
+    font-weight: bold;
+}
+
+.countrySubtitle {
+    display: block;
+}
