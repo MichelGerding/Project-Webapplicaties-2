@@ -8,7 +8,7 @@ type HistoryProps = {
 }
 
 
-export default function ({ location, filterFunction }: HistoryProps) {
+export default function History({ location, filterFunction }: HistoryProps) {
 
     return (
         <div key={location.Location + ":header-wrapper"} style={{

@@ -13,7 +13,7 @@ type HistoryWrapperProps = {
     country: string,
 };
 
-export default function ({ data, country }: HistoryWrapperProps) {
+export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
 
     const [timeRange, setTimeRange] = React.useState([
         {
@@ -107,6 +107,7 @@ export default function ({ data, country }: HistoryWrapperProps) {
             }}>
 
                 {data.map((location: any) => <History
+                    key={location.Location + ":history"}
                     location={location}
                     filterFunction={(date) => {
                         return (date <= timeRange[0].endDate) && (date >= timeRange[0].startDate)

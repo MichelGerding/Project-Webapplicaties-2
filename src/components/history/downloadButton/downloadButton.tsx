@@ -6,7 +6,7 @@ type DownloadButtonProps = {
     data: any
 }
 
-export default function ({ data }: DownloadButtonProps) {
+export default function DownloadButton({ data }: DownloadButtonProps) {
     return (
         <button className={styles.button} onClick={() => {
             console.log(data)
