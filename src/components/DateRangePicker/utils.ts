@@ -9,6 +9,7 @@ import {
 	parse,
 	isValid
 } from "date-fns";
+import moment from "moment";
 import { DateRange } from "./types";
 
 export const identity = <T>(x: T) => x;
@@ -59,14 +60,19 @@ type Falsy = false | null | undefined | 0 | "";
 
 export const parseOptionalDate = (date: Date | string | Falsy, defaultValue: Date) => {
 	if (date) {
-		const parsed = parse(date);
+
+
+		const parsed = (typeof date === 'string' || date instanceof String) ?  
+            parse(date as string, undefined as any, undefined as any) : 
+            date;
+
 		if (isValid(parsed)) return parsed;
 	}
 	return defaultValue;
 };
 
 export const  dates = {
-    convert:function(d: Date) {
+    convert:function(d: any) {
         // Converts the date in d to a date-object. The input can be:
         //   a date object: returned without modification
         //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
@@ -79,13 +85,13 @@ export const  dates = {
         return (
             d.constructor === Date ? d :
             d.constructor === Array ? new Date(d[0],d[1],d[2]) :
-            d.constructor === Number ? new Date(d) :
-            d.constructor === String ? new Date(d) :
+            d.constructor === Number ? new Date(d as any) :
+            d.constructor === String ? new Date(d as any) :
             typeof d === "object" ? new Date(d.year,d.month,d.date) :
             NaN
         );
     },
-    compare:function(a: Date,b: Date) {
+    compare:function(a: any,b: any) {
         // Compare two dates (could be of any type supported by the convert
         // function above) and returns:
         //  -1 : if a < b
@@ -96,11 +102,11 @@ export const  dates = {
         return (
             isFinite(a=this.convert(a).valueOf()) &&
             isFinite(b=this.convert(b).valueOf()) ?
-            (a>b)-(a<b) :
+            +(a>b)-+(a<b) :
             NaN
         );
     },
-    inRange:function(d: Date,start: Date,end: Date) {
+    inRange:function(d: any,start: any,end: any) {
         // Checks if date in d is between dates in start and end.
         // Returns a boolean or NaN:
         //    true  : if d is between start and end (inclusive)
