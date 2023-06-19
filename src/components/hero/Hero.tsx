@@ -1,5 +1,5 @@
-import CountrySelector, { Country } from "@/countrySelector/CountrySelector";
-import CountrySelectorMobile from "@/countrySelector/CountrySelectorMobile";
+import CountrySelector, { Country } from "@/components/countrySelector/CountrySelector";
+import CountrySelectorMobile from "@/components/countrySelector/CountrySelectorMobile";
 import Map from "@/components/Map";
 
 import styles from "./Hero.module.css"

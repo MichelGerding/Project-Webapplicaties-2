@@ -1,4 +1,3 @@
-import { Moment } from "moment";
 import Image from "next/image";
 import React from "react";
 import Chart from "../Chart"

@@ -13,7 +13,8 @@
 .dateRangePicker {
     z-index: 10000000;
     background-color: white;
-    padding: 3em;
+    padding: 0;
+    border: none;
 }
 
 .dateRangePickerClose {

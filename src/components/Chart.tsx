@@ -4,8 +4,6 @@ import dynamic from 'next/dynamic'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-// import Chart from "react-apexcharts";
-import { useEffect, useState } from "react";
 import { getUserLocale } from "get-user-locale";
 import moment from "moment/moment";
 import { useResizeDetector } from 'react-resize-detector';

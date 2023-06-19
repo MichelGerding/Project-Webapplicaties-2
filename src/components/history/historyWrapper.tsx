@@ -1,9 +1,8 @@
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { DateRangePicker, DateRange } from 'react-date-range';
+import { DateRangePicker, DateRange } from "@/components/DateRangePicker/index"
+
+import React, { useEffect } from 'react';
 
 import History from "@/components/history/history";
-import React from 'react';
 import DownloadButton from './downloadButton/downloadButton';
 
 import style from "./historyWrapper.module.css"
@@ -15,17 +14,88 @@ type HistoryWrapperProps = {
     country: string,
 };
 
+function useOutsideAlerter(ref: HTMLDialogElement) {
+    useEffect(() => {
+      function handleClickOutside(event: React.MouseEvent) {
+        const rect = ref.getBoundingClientRect();
+        const isInDialog=(rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+        && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+        if (!isInDialog) {
+            ref.close();
+        }
+      }
+
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside as any);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside as any);
+      };
+    }, [ref]);
+  }
+
 export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
 
-    const [timeRange, setTimeRange] = React.useState([
+    
+
+    const [dialogElem, setDialogElem] = React.useState<any>(null as any)
+    const [dialog, setDialog] = React.useState<HTMLDialogElement>(null as unknown as HTMLDialogElement);
+    const outsideClick = useOutsideAlerter(dialog)
+    
+
+    const [dateRange, setDateRange] = React.useState<DateRange>(
         {
             startDate: new Date((new Date).getTime() - (28 * 24 * 60 * 60 * 1000)),
             endDate: new Date,
-            key: 'selection'
         }
-    ]);
+    );
 
-    let dialog = null as unknown as HTMLDialogElement;
+    useEffect(() => {
+        if (window !== null) {
+            window.onclick
+
+        }
+        
+        const isMobile = window.matchMedia("(max-width: 950px)").matches
+
+        setDialogElem(<DateRangePicker
+            initialDateRange={dateRange}
+            mobile={isMobile}
+            open={true}
+            onChange={range => setDateRange(range)}
+            definedRanges={isMobile ? [] : [{
+                startDate: new Date(),
+                endDate: new Date(),
+                label: ""
+            },{
+                startDate: new Date(),
+                endDate: new Date(),
+                label: "Today"
+            },{
+                startDate: new Date((new Date).getTime() - (1 * 24 * 60 * 60 * 1000)),
+                endDate: new Date((new Date).getTime() - (1 * 24 * 60 * 60 * 1000)),
+                label: "Yesterday"
+            },{
+                startDate: new Date((new Date).getTime() - (7 * 24 * 60 * 60 * 1000)),
+                endDate: new Date(),
+                label: "Last 7 days"
+            },{
+                startDate: new Date((new Date).getTime() - (14 * 24 * 60 * 60 * 1000)),
+                endDate: new Date(),
+                label: "Last 2 weeks"
+            },{
+                startDate: new Date((new Date).getTime() - (21 * 24 * 60 * 60 * 1000)),
+                endDate: new Date(),
+                label: "Last 3 weeks"
+            },{
+                startDate: new Date((new Date).getTime() - (28 * 24 * 60 * 60 * 1000)),
+                endDate: new Date(),
+                label: "Last 4 weeks"
+            }]}
+        />)
+    }, [])
+
+
 
 
     let exportData = data.map((l: any) => {
@@ -34,7 +104,7 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
 
         l2.measurements = l2.measurements.filter((m: any) => {
             let date = new Date(m.Date);
-            return (date <= timeRange[0].endDate) && (date >= timeRange[0].startDate)
+            return (date <= dateRange.endDate!) && (date >= dateRange.startDate!)
         })
 
         return l2
@@ -42,22 +112,13 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
 
     console.log("exportData", exportData)
 
+
     const renderDateRangePicker = () => {
-        return (
-            <DateRange
-
-                editableDateInputs={true}
-                onChange={(item: any) => {
-                    setTimeRange([item.selection])
-                }}
-                moveRangeOnFirstSelection={false}
-                ranges={timeRange}
-
-
-                minDate={new Date((new Date).getTime() - (28 * 24 * 60 * 60 * 1000))}
-                maxDate={new Date()}
-            />
-        )
+        if (dialogElem == null) {
+            return (<></>)
+        }
+    
+        return dialogElem
     }
 
     return (
@@ -71,12 +132,14 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
                         dialog.showModal()
                     }}
                 >
-                    <b>From: </b>{timeRange[0].startDate.toDateString()} --&gt; <b>to: </b>{timeRange[0].endDate.toDateString()}
+                    <b>From: </b>{dateRange.startDate!.toDateString()} --&gt; <b>to: </b>{dateRange.endDate!.toDateString()}
                 </span>
             </div>
 
             <dialog
-                ref={(e) => dialog = e!}
+                ref={(e) => {
+                    setDialog(e!);    
+                }}
                 className={style.dateRangePicker}>
                 {renderDateRangePicker()}
 
@@ -90,7 +153,7 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
                     key={location.Location + ":history"}
                     location={location}
                     filterFunction={(date) => {
-                        return (date <= timeRange[0].endDate) && (date >= timeRange[0].startDate)
+                        return (date <= dateRange.endDate!) && (date >= dateRange.startDate!)
                     }}
                 />)}
 
