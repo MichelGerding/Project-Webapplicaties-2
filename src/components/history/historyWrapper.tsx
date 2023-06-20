@@ -16,36 +16,36 @@ type HistoryWrapperProps = {
 
 function useOutsideAlerter(ref: HTMLDialogElement) {
     useEffect(() => {
-      function handleClickOutside(event: React.MouseEvent) {
-        const rect = ref.getBoundingClientRect();
-        const isInDialog=(rect.top <= event.clientY && event.clientY <= rect.top + rect.height
-        && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
-        if (!isInDialog) {
-            ref.close();
+        function handleClickOutside(event: React.MouseEvent) {
+            const rect = ref.getBoundingClientRect();
+            const isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+                && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+            if (!isInDialog) {
+                ref.close();
+            }
         }
-      }
 
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside as any);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside as any);
-      };
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside as any);
+        return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside as any);
+        };
     }, [ref]);
-  }
+}
 
 export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
 
-    
+
 
     const [dialogElem, setDialogElem] = React.useState<any>(null as any)
     const [dialog, setDialog] = React.useState<HTMLDialogElement>(null as unknown as HTMLDialogElement);
     const outsideClick = useOutsideAlerter(dialog)
-    
+
 
     const [dateRange, setDateRange] = React.useState<DateRange>(
         {
-            startDate: new Date((new Date).getTime() - (28 * 24 * 60 * 60 * 1000)),
+            startDate: new Date((new Date).getTime() - (3 * 24 * 60 * 60 * 1000)),
             endDate: new Date,
         }
     );
@@ -55,7 +55,7 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
             window.onclick
 
         }
-        
+
         const isMobile = window.matchMedia("(max-width: 950px)").matches
 
         setDialogElem(<DateRangePicker
@@ -67,27 +67,27 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
                 startDate: new Date(),
                 endDate: new Date(),
                 label: ""
-            },{
+            }, {
                 startDate: new Date(),
                 endDate: new Date(),
                 label: "Today"
-            },{
+            }, {
                 startDate: new Date((new Date).getTime() - (1 * 24 * 60 * 60 * 1000)),
                 endDate: new Date((new Date).getTime() - (1 * 24 * 60 * 60 * 1000)),
                 label: "Yesterday"
-            },{
+            }, {
                 startDate: new Date((new Date).getTime() - (7 * 24 * 60 * 60 * 1000)),
                 endDate: new Date(),
                 label: "Last 7 days"
-            },{
+            }, {
                 startDate: new Date((new Date).getTime() - (14 * 24 * 60 * 60 * 1000)),
                 endDate: new Date(),
                 label: "Last 2 weeks"
-            },{
+            }, {
                 startDate: new Date((new Date).getTime() - (21 * 24 * 60 * 60 * 1000)),
                 endDate: new Date(),
                 label: "Last 3 weeks"
-            },{
+            }, {
                 startDate: new Date((new Date).getTime() - (28 * 24 * 60 * 60 * 1000)),
                 endDate: new Date(),
                 label: "Last 4 weeks"
@@ -117,7 +117,7 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
         if (dialogElem == null) {
             return (<></>)
         }
-    
+
         return dialogElem
     }
 
@@ -138,7 +138,7 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
 
             <dialog
                 ref={(e) => {
-                    setDialog(e!);    
+                    setDialog(e!);
                 }}
                 className={style.dateRangePicker}>
                 {renderDateRangePicker()}

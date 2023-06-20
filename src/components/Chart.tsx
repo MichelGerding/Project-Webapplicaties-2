@@ -7,6 +7,7 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 import { getUserLocale } from "get-user-locale";
 import moment from "moment/moment";
 import { useResizeDetector } from 'react-resize-detector';
+import { cp } from 'fs';
 
 type ChartProps = {
     data: Data[];
@@ -30,27 +31,25 @@ function parseData(dataIn: Data[], labelType: string, filter: any): Data[] {
     let correctedData = dataIn.map((d, i) => {
         // check if k is a valid date
         if (labelType === "date") {
-            if (moment(d.x, "YYYY-MM-DDTHH:mm").isValid()) {
-                let date = moment(d.x, "YYYY-MM-DDTHH:mm").toDate();
-                if (!filter(date)) {
+            if (moment(d.x, "YYYY-MM-DD HH:mm").isValid()) {
+                let date = moment(d.x, "YYYY-MM-DD HH:mm");
+
+                if (!filter(date.toDate())) {
                     return undefined;
                 }
 
                 return {
                     y: d.y,
-                    x: date.toLocaleString(
-                        getUserLocale({ fallbackLocale: "en-US", useFallbackLocale: true }) as string,
-                        {
-                            month: "long",
-                            day: "numeric",
-                        }
-                    )
+                    x: date.locale(getUserLocale({
+                        fallbackLocale: "en-GB"
+                    })!).format("DD/MM HH:00")
                 };
             }
 
             return d;
         }
     });
+
 
     return correctedData.filter(d => d !== undefined) as Data[];
 }
@@ -77,7 +76,11 @@ function generateOptions(data: any[], annotations: any, dataType: string, chartI
             autoScaleYaxis: true
         },
         xaxis: {
-            categories: data.map((d) => d.x),
+            // categories: data.map((d) => d.x),
+            labels: {
+                format: 'dd/MM'
+            }
+
         },
         yaxis: {
             min: minVal,
@@ -85,7 +88,7 @@ function generateOptions(data: any[], annotations: any, dataType: string, chartI
             labels: {
                 formatter: (val: number) => {
                     if (val !== null) {
-                        return `${val}${dataType}`;
+                        return `${val.toPrecision(2)} ${dataType}`;
                     }
                     return "N/A";
                 }

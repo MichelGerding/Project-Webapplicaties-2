@@ -92,10 +92,7 @@ export default function History({ location, filterFunction }: HistoryProps) {
                         })}
                         xType="date"
                         yType="km"
-                        dataFilter={(d: any) => {
-                            // if (d.y < ) 
-                            return true
-                        }}
+                        dataFilter={filterFunction}
                     />
                 </div>
             )
