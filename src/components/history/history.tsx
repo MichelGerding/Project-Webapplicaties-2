@@ -32,8 +32,8 @@ export default function History({ location, filterFunction }: HistoryProps) {
                     </div>
 
                     <div>
-                        <p style={{ margin: 0 }}> <b>Latest Humidity:</b> {location.measurements[0].humidity}</p>
-                        <p style={{ margin: 0 }}> <b>Latest Visibility:</b> {location.measurements[0].visib}</p>
+                        <p style={{ margin: 0 }}> <b>Latest Humidity:</b> {location.measurements[0].humidity}%</p>
+                        <p style={{ margin: 0 }}> <b>Latest Visibility:</b> {location.measurements[0].visib}km</p>
                     </div>
 
 
