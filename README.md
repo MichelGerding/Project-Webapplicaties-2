@@ -1,38 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project ARC
 
-## Getting Started
+dit is een applicatie geschreven in next.js voor het vak webapplicaties 2.
 
-First, run the development server:
+in deze applicatie zijn gebruikt gemaakt van de volgende frameworks/modules
+- next.js
+  - nextauth
+- aws cognito
+- google maps
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+een werkend voorbeeld is te vinden op https://project-webapplicaties-2.vercel.app/ met de volgende inloggegevens
+```
+username: demo
+passwrod: DemoPassword
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## .env
+voor het runnen van deze zijn een aantal env variablen nodig.
+er is een voorbeeld bestant met een aantal variablen ingevuld. dit is `example.env.local` deze moet vernoemd worden naar `.env.local` en ingevuld worden. 
+hiervan moet minimaal de aws coginito tokens ingevuld zijn. de google maps tokens zijn niet verplicht voor het functioneren van de kaart.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## auth uitzetten
+om de applicatie zonder authenticatie te kunnen runnen moeten er een aantal aanpassingen gedaan worden
+- `src/middleware.ts` hernoemen naar een andere naam. je kunt hem niet hernoemen naar `_middleware.ts`
+- lijn 76 in `src/pages/dashboard.tsx` en lijn 21 in  `src/componnets/Navbar/navbar.tsx` vervangen met de volgende code 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```ts
+ const session = {
+        data: {
+        user: {
+            name: "",
+            image: ""
+        }
+    },
+    status: "authenticated",
+};
+``` 
 
-## Learn More
+als deze stappen zijn gemaakt dan wordt de authenticatie niet meer gebruikt en kan je de applicatie opstarten zonder de aws cognito variablen. als dit gedaan is dan moet je wel handmatig navigeren naar de `/dashboard` pagina. de inlogknop werkt dan namelijk niet.
 
-To learn more about Next.js, take a look at the following resources:
+## installatie
+deze applicatie wordt gerunned op node js. als je nodejs nog niet geinstaleerd hebt moet je dit eerst installeren. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+als dit gedaan is dan moet je door legacy dependencies van sommige packages een flag toeveogen aan het install commando. dit wordt dan als volgt:
+```
+npm install --legacy-peer-deps
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+als je dit commando uitvoord dan worden als het goed is alle depenecies geinstalleerd
 
-## Deploy on Vercel
+## starten
+als de aplpicatie geinstalleerd is en de env variablen zijn ingesteld en mogelijk auth is uitgeschakeld dan kan je de applicatie opstraten dit kan je doen doormiddel van het volgende commando.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+als dit commando uitgevoerd is dan is enkele momentel later op `http://localhost:3000` de applicatie beschikbaar.
