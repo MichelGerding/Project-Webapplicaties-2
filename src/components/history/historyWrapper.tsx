@@ -124,7 +124,7 @@ export default function HistroyWrapper({ data, country }: HistoryWrapperProps) {
     return (
         <div style={{ width: "100%" }}>
             <h3 style={{ fontSize: 42, marginBottom: 7 }}> Historical overview: <span style={{ color: "#EFA537" }}>{country} </span></h3>
-            <div style={{ display: 'flex', gap: "2ch" }}>
+            <div style={{ display: 'flex', gap: "2ch", cursor: "pointer" }}>
 
                 <span
                     className={style.dateRangePill}

@@ -27,7 +27,7 @@ export default function History({ location, filterFunction }: HistoryProps) {
                         > {location.Location}</h2>
                         <span onClick={() => {
                             setColapsed(!colapsed);
-                        }}>  <Image style={{ marginTop: "10px" }} src="caret.svg" alt="" width={40} height={40} /> </span>
+                        }}>  <Image style={{ marginTop: "10px", cursor: "pointer" }} src="caret.svg" alt="" width={40} height={40}/> </span>
 
                     </div>
 

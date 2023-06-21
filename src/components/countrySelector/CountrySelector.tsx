@@ -27,6 +27,9 @@ export default function CountrySelector({ countries, selectionChanged }: Country
                     <div
                         ref={(el) => { refs[index] = el!; }}
                         key={index}
+                        style={{
+                            cursor: "pointer",
+                        }}
                         className={index === 0 ? styles.selected : ""}
                         onClick={() => {
                             selectionChanged(country);
